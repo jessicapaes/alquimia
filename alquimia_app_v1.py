@@ -6,6 +6,8 @@ from datetime import datetime
 import json
 import os
 from pathlib import Path
+from PIL import Image
+import io
 
 # ============================================================================
 # CONFIGURATION & CONSTANTS
@@ -86,6 +88,46 @@ def save_data():
         st.error(f"Erro ao salvar dados: {e}")
         return False
 
+def create_vision_collage(images_dict, max_width=2000):
+    """Create a collage from uploaded images"""
+    all_images = []
+    for area, imgs in images_dict.items():
+        for img_file in imgs:
+            try:
+                img = Image.open(img_file)
+                all_images.append(img)
+            except:
+                continue
+    
+    if not all_images:
+        return None
+    
+    # Calculate grid dimensions
+    num_images = len(all_images)
+    cols = 4
+    rows = (num_images + cols - 1) // cols
+    
+    # Resize images to consistent size
+    img_size = max_width // cols
+    resized_images = []
+    for img in all_images:
+        img_resized = img.resize((img_size, img_size), Image.Resampling.LANCZOS)
+        resized_images.append(img_resized)
+    
+    # Create collage
+    collage_width = img_size * cols
+    collage_height = img_size * rows
+    collage = Image.new('RGB', (collage_width, collage_height), color='white')
+    
+    for idx, img in enumerate(resized_images):
+        row = idx // cols
+        col = idx % cols
+        x = col * img_size
+        y = row * img_size
+        collage.paste(img, (x, y))
+    
+    return collage
+
 def initialize_session_state():
     """Initialize or load session state from file"""
     data = load_data()
@@ -119,6 +161,19 @@ def initialize_session_state():
         st.session_state.roda_scores = DEFAULT_RODA_SCORES.copy()
         st.session_state.smart_goals = []
         st.session_state.history = []
+        
+        # Initialize vision_images
+        if 'vision_images' not in st.session_state:
+            st.session_state.vision_images = {
+                "🌸 EVA - Minha Criação Sagrada": [],
+                "🌿 Saúde & Bem-Estar": [],
+                "🔮 Espiritualidade": [],
+                "🦋 Crescimento Pessoal": [],
+                "💕 Amor Próprio": [],
+                "🇮🇹 Italia & Aventuras": [],
+                "💰 Abundância": [],
+                "🎨 Criatividade": []
+            }
         
         # Initialize reflection fields
         reflection_keys = [
@@ -1396,34 +1451,147 @@ with tab3:
         }
     }
     
-    cols = st.columns(2)
+    # View mode selector
+    st.markdown('<div style="margin: 2rem 0;">', unsafe_allow_html=True)
+    view_mode = st.radio(
+        "Modo de Visualização:",
+        ["📝 Texto & Intenções", "🖼️ Collage Digital", "📋 Ver Tudo"],
+        horizontal=True
+    )
+    st.markdown('</div>', unsafe_allow_html=True)
     
-    for idx, (area, details) in enumerate(vision_areas.items()):
-        with cols[idx % 2]:
-            st.markdown(f"""
-            <div class="glass-card">
-                <h3 style="color: #1a202c; margin: 0 0 15px 0; font-size: 1.3rem; font-weight: 800;">{area}</h3>
-                <p style="color: #64748b; margin: 0 0 15px 0; font-size: 0.95rem; font-weight: 600;">
-                    <strong>Keywords:</strong> {', '.join(details['keywords'])}
-                </p>
-                <div style="background: rgba(102, 126, 234, 0.1); padding: 15px; border-radius: 10px; border-left: 4px solid #667eea; margin-bottom: 15px;">
-                    <p style="margin: 0; color: #334155; font-size: 0.95rem; font-style: italic;">
-                        💭 {details['affirmation']}
+    if view_mode == "🖼️ Collage Digital" or view_mode == "📋 Ver Tudo":
+        st.markdown("---")
+        st.markdown("""
+        <div class="glass-card">
+            <h3 style="color: #1a202c; margin: 0 0 15px 0; font-size: 1.5rem; font-weight: 800;">
+                🎨 Seu Collage Visual 2026
+            </h3>
+        """, unsafe_allow_html=True)
+        
+        # Display all images in a grid
+        all_images = []
+        for area, images in st.session_state.vision_images.items():
+            all_images.extend(images)
+        
+        if all_images:
+            # Create a masonry-style grid
+            cols_collage = st.columns(4)
+            for idx, img in enumerate(all_images):
+                with cols_collage[idx % 4]:
+                    st.image(img, use_container_width=True)
+        else:
+            st.info("📸 Adicione imagens nas áreas abaixo para criar seu collage!")
+        
+        st.markdown('</div>', unsafe_allow_html=True)
+        st.markdown("---")
+    
+    if view_mode == "📝 Texto & Intenções" or view_mode == "📋 Ver Tudo":
+        cols = st.columns(2)
+        
+        for idx, (area, details) in enumerate(vision_areas.items()):
+            with cols[idx % 2]:
+                st.markdown(f"""
+                <div class="glass-card">
+                    <h3 style="color: #1a202c; margin: 0 0 15px 0; font-size: 1.3rem; font-weight: 800;">{area}</h3>
+                    <p style="color: #64748b; margin: 0 0 15px 0; font-size: 0.95rem; font-weight: 600;">
+                        <strong>Keywords:</strong> {', '.join(details['keywords'])}
                     </p>
+                    <div style="background: rgba(102, 126, 234, 0.1); padding: 15px; border-radius: 10px; border-left: 4px solid #667eea; margin-bottom: 15px;">
+                        <p style="margin: 0; color: #334155; font-size: 0.95rem; font-style: italic;">
+                            💭 {details['affirmation']}
+                        </p>
+                    </div>
                 </div>
-            </div>
-            """, unsafe_allow_html=True)
-            
-            key = f"vision_{area}"
-            current_value = st.session_state.get(key, "")
-            st.text_area(
-                "Suas intenções para esta área:",
-                value=current_value,
-                height=100,
-                key=key
-            )
-            
-            st.markdown("---")
+                """, unsafe_allow_html=True)
+                
+                # Image upload section
+                with st.expander("📸 Adicionar Imagens", expanded=False):
+                    uploaded_files = st.file_uploader(
+                        f"Upload fotos para {area}",
+                        type=['png', 'jpg', 'jpeg', 'gif'],
+                        accept_multiple_files=True,
+                        key=f"upload_{area}"
+                    )
+                    
+                    if uploaded_files:
+                        for uploaded_file in uploaded_files:
+                            if uploaded_file not in st.session_state.vision_images[area]:
+                                st.session_state.vision_images[area].append(uploaded_file)
+                        st.success(f"✨ {len(uploaded_files)} imagem(ns) adicionada(s)!")
+                    
+                    # Display uploaded images for this area
+                    if st.session_state.vision_images[area]:
+                        st.markdown(f"**Imagens ({len(st.session_state.vision_images[area])}):**")
+                        img_cols = st.columns(3)
+                        for img_idx, img in enumerate(st.session_state.vision_images[area]):
+                            with img_cols[img_idx % 3]:
+                                st.image(img, use_container_width=True)
+                                if st.button("🗑️", key=f"delete_img_{area}_{img_idx}"):
+                                    st.session_state.vision_images[area].pop(img_idx)
+                                    st.rerun()
+                
+                key = f"vision_{area}"
+                current_value = st.session_state.get(key, "")
+                st.text_area(
+                    "Suas intenções para esta área:",
+                    value=current_value,
+                    height=100,
+                    key=key
+                )
+                
+                st.markdown("---")
+    
+    # Export Vision Board
+    st.markdown("---")
+    st.markdown("""
+    <div class="glass-card">
+        <h3 style="color: #1a202c; margin: 0 0 15px 0; font-size: 1.5rem; font-weight: 800;">
+            💾 Exportar Vision Board
+        </h3>
+    </div>
+    """, unsafe_allow_html=True)
+    
+    col1, col2, col3 = st.columns(3)
+    
+    with col1:
+        # Check if there are images to export
+        total_images = sum(len(imgs) for imgs in st.session_state.vision_images.values())
+        
+        if total_images > 0:
+            if st.button("🖼️ Gerar Collage", type="primary"):
+                with st.spinner("Criando seu collage mágico..."):
+                    collage = create_vision_collage(st.session_state.vision_images)
+                    if collage:
+                        # Convert to bytes
+                        buf = io.BytesIO()
+                        collage.save(buf, format='PNG')
+                        byte_im = buf.getvalue()
+                        
+                        st.download_button(
+                            label="📥 Download Collage PNG",
+                            data=byte_im,
+                            file_name=f"alquimia_vision_board_{datetime.now().strftime('%Y%m%d')}.png",
+                            mime="image/png"
+                        )
+                        
+                        # Show preview
+                        st.image(collage, caption="Seu Vision Board 2026 ✨", use_container_width=True)
+        else:
+            st.info("📸 Adicione imagens primeiro para gerar o collage!")
+    
+    with col2:
+        # Count total images
+        st.metric("Total de Imagens", total_images)
+    
+    with col3:
+        if total_images > 0:
+            if st.button("🗑️ Limpar Todas Imagens"):
+                if st.checkbox("Tem certeza?", key="confirm_clear_images"):
+                    for area in st.session_state.vision_images.keys():
+                        st.session_state.vision_images[area] = []
+                    st.success("✨ Imagens limpas!")
+                    st.rerun()
 
 # ============================================================================
 # TAB 4: SMART GOALS 2026

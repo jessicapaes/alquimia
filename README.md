@@ -33,6 +33,11 @@ Interactive app for year-end reflection (2025) and vision planning (2026) with R
 ### 🌟 Vision Board 2026
 - 8 key life areas with keywords and affirmations
 - Text areas to write intentions for each area
+- **📸 IMAGE UPLOAD**: Upload photos for each life area
+- **🖼️ Digital Collage View**: See all your images in a beautiful grid
+- **📥 Download Collage**: Generate and download a PNG collage of your vision board
+- View modes: Text only, Collage only, or See All
+- Delete individual images or clear all
 - Aligned with Personal Year 7 energy (Nov 2025-Nov 2026)
 - Transition to Year 8 in November 2026
 
@@ -141,7 +146,7 @@ For more permanent storage across sessions
 2. [ ] Customize colors to your preference
 3. [ ] Add more reflection prompts
 4. [ ] Implement data persistence
-5. [ ] Add image upload for vision board
+5. [x] Add image upload for vision board ✅
 6. [ ] Create monthly check-in feature
 7. [ ] Add PDF export with charts
 8. [ ] Integrate with Eva app goals
