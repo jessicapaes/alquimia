@@ -1,0 +1,90 @@
+{
+  "roda_scores": {
+    "Saúde/Health": 4,
+    "Carreira/Career": 6,
+    "Finanças/Finances": 5,
+    "Relacionamentos/Relationships": 6,
+    "Família/Family": 7,
+    "Espiritualidade/Spirituality": 4,
+    "Diversão/Fun": 4,
+    "Crescimento Pessoal/Growth": 7,
+    "Ambiente Físico/Home": 7,
+    "Criatividade/Creativity": 6
+  },
+  "smart_goals": [
+    {
+      "area": "Saúde/Health",
+      "specific": "Um corpo com mobilidade, flexibilidade e movimento",
+      "measurable": "Com niveis de dor e quantidade de movimento",
+      "achievable": "Sim, estarei no meu ano sabatico com academia, plano MOVA, medicamento e sem trabalho fixo de empregada",
+      "relevant": "Porque sem saude e sem movimento eu nao sou feliz e nao terei longevidade",
+      "time_bound": "Ate Novembro de 2026",
+      "archetype": "Sorceress",
+      "priority": "Crítica",
+      "completed": false,
+      "created_date": "2025-12-12T12:21:38.842163"
+    },
+    {
+      "area": "Carreira/Career",
+      "specific": "Liberdade de fronteira, trabalhar de qualquer lugar do mundo, ter fontes de renda sem restricao fisica",
+      "measurable": "Tendo pelo menos uma fonte de renda sem restricao fisica",
+      "achievable": "Sim, posso criar algum modelo de negocio ou achar um trabalho remoto",
+      "relevant": "Porque ter liberdade para viajar e nao me sentir pre eh essencial para a minha saude mental",
+      "time_bound": "Novembro 2025",
+      "archetype": "Sorceress",
+      "priority": "Alta",
+      "completed": false,
+      "created_date": "2025-12-12T12:24:58.214469"
+    }
+  ],
+  "reflections": {
+    "conquistas_2025": "",
+    "desafios_2025": "",
+    "aprendizados_2025": "",
+    "gratidao_2025": "",
+    "feiticeira_presente": "",
+    "archetypes_atencao": "",
+    "rituais_2026": "",
+    "eva_magia": ""
+  },
+  "vision_intentions": {
+    "🌸 EVA - Minha Criação Sagrada": "",
+    "🌿 Saúde & Bem-Estar": "",
+    "🔮 Espiritualidade": "",
+    "🦋 Crescimento Pessoal": "",
+    "💕 Amor Próprio": "",
+    "🇮🇹 Italia & Aventuras": "",
+    "💰 Abundância": "",
+    "🎨 Criatividade": ""
+  },
+  "archetype_scores": {
+    "arch_🐺 Wild Woman/Selvagem": 5,
+    "arch_⚔️ Warrior/Guerreira": 5,
+    "arch_🌸 Maiden/Donzela": 5,
+    "arch_🦉 Wise Woman/Sábia": 5,
+    "arch_🔮 Sorceress/Feiticeira": 5,
+    "arch_👑 Queen/Rainha": 5,
+    "arch_💕 Lover/Amante": 5,
+    "arch_🤱 Mother/Mãe": 5,
+    "arch_🌙 Mystic/Mística": 5
+  },
+  "history": [
+    {
+      "date": "2025-12-12T11:04:21.503091",
+      "roda_scores": {
+        "Saúde/Health": 5,
+        "Carreira/Career": 5,
+        "Finanças/Finances": 5,
+        "Relacionamentos/Relationships": 5,
+        "Família/Family": 5,
+        "Espiritualidade/Spirituality": 5,
+        "Diversão/Fun": 5,
+        "Crescimento Pessoal/Growth": 5,
+        "Ambiente Físico/Home": 5,
+        "Criatividade/Creativity": 5
+      },
+      "avg_score": 5.0
+    }
+  ],
+  "last_updated": "2025-12-12T12:24:58.214718"
+}
