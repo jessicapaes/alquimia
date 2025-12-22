@@ -30,7 +30,7 @@ except ImportError:
 # CONFIGURATION & CONSTANTS
 # ============================================================================
 
-DATA_FILE = "alquimia_data.json"
+DATA_FILE = "realize_data.json"
 DEFAULT_RODA_SCORES = {
     'Saúde': 0,
     'Carreira': 0,
@@ -656,7 +656,7 @@ def create_radar_chart(values, categories, name='2025', show_target=False, targe
 # ============================================================================
 
 st.set_page_config(
-    page_title="Meu Plano de 2026",
+    page_title="Realize",
     page_icon="📔",
     layout="wide",
     initial_sidebar_state="expanded"
@@ -1702,7 +1702,7 @@ initialize_session_state()
 st.markdown("""
 <div class="header-box">
     <div class="header-banner">✨ LIFE ASSESSMENT • GOAL SETTING • VISION BOARD • PERSONAL GROWTH</div>
-    <h1 class="header-title">Meu Plano de 2026 📔</h1>
+    <h1 class="header-title">Realize ✨</h1>
 </div>
 """, unsafe_allow_html=True)
 
@@ -1711,7 +1711,7 @@ st.markdown("""
 # ============================================================================
 
 with st.sidebar:
-    st.markdown("### 📔 Plano de 2026")
+    st.markdown("### ✨ Realize")
     st.markdown("""
     **Transforme sua vida com clareza e intenção**
     
@@ -2721,7 +2721,7 @@ app_secret = "seu_app_secret"
                         st.download_button(
                             label="📥 Download Collage PNG",
                             data=byte_im,
-                            file_name=f"plano_de_2026_vision_board_{datetime.now().strftime('%Y%m%d')}.png",
+                            file_name=f"realize_vision_board_{datetime.now().strftime('%Y%m%d')}.png",
                             mime="image/png"
                         )
                         
@@ -4065,7 +4065,7 @@ with tab4:
         st.download_button(
             label="📥 Download JSON",
             data=json.dumps(export_data, indent=2, ensure_ascii=False),
-            file_name=f"plano_de_2026_{datetime.now().strftime('%Y%m%d')}.json",
+            file_name=f"realize_{datetime.now().strftime('%Y%m%d')}.json",
             mime="application/json",
             use_container_width=True
         )
@@ -4080,7 +4080,7 @@ with tab4:
         st.download_button(
             label="📥 Download CSV",
             data=csv,
-            file_name=f"plano_de_2026_roda_vida_{datetime.now().strftime('%Y%m%d')}.csv",
+            file_name=f"realize_roda_vida_{datetime.now().strftime('%Y%m%d')}.csv",
             mime="text/csv",
             use_container_width=True
         )
@@ -4553,8 +4553,8 @@ with tab5:
 st.markdown("---")
 st.markdown("""
 <div style='text-align: center; color: #667eea; padding: 20px;'>
-    <h3>Meu Plano de 2026 📔</h3>
-    <p>Transformando chumbo em ouro | Turning lead into gold</p>
-    <p style='margin-top: 15px; font-style: italic;'>A magia está em você 💜</p>
+    <h3>Realize ✨</h3>
+    <p>Transforme seus sonhos em realidade | Turn your dreams into reality</p>
+    <p style='margin-top: 15px; font-style: italic;'>O poder está em você 💜</p>
 </div>
 """, unsafe_allow_html=True)

@@ -1,5 +1,5 @@
 """
-Pinterest Integration Module for Vision Board
+Pinterest Integration Module for Realize Vision Board
 Handles OAuth authentication, board/pin fetching, and image downloading
 """
 

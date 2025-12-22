@@ -1,8 +1,8 @@
-# 🔮 ALQUIMIA - Year 7 Vision App
+# ✨ REALIZE - Year 7 Vision App
 
 Interactive app for year-end reflection (2025) and vision planning (2026) with Roda da Vida, SMART Goals, Archetypes, and Numerology.
 
-**Alquimia** = The art of transformation. Turning your life experiences into wisdom, your pain into power, your vision into reality.
+**Realize** = Turn your dreams into reality. Transform your vision into action, your goals into achievements.
 
 ## 🚀 Quick Start with Cursor
 
@@ -13,7 +13,7 @@ Interactive app for year-end reflection (2025) and vision planning (2026) with R
    ```
 3. **Run the app:**
    ```bash
-   streamlit run alquimia.py
+   streamlit run alquimia_app_v1.py
    ```
 
 ## 📱 Features
